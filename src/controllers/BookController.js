@@ -2,16 +2,14 @@ const knex = require("../database/knex")
 class BookController {
 
     async createBook(req, res) {
-        const {user_id} = req.params
-        const {title, autor, ano, categoria} = req.body
+        const {titulo, autor, ano, paginas, categoria} = req.body
 
         const book = {
             titulo,
             autor,
             ano,
-            categoria,
-            book_id,
-            disponibilidade: true
+            paginas,
+            categoria
         }
 
         await knex("books").insert({
@@ -19,10 +17,12 @@ class BookController {
             autor: book.autor,
             ano: book.ano,
             categoria: book.categoria,
-            book_id: book.book_id,
+            paginas: book.paginas,
             disponibilidade: book.disponibilidade
+           
+            
         })
-        return res.status(201).json("Tarefa criada com sucesso!")
+        return res.status(201).json("Livro criado com sucesso!")
     }
 
     async listBook(req,res) {
@@ -42,7 +42,7 @@ class BookController {
         const {id} = req.params
         const {titulo, autor} = req.body
 
-        await knex("books").where({id}).update({titulo, autor})
+        await knex("books").where({id}).update({titulo, autor, ano, categoria})
 
         return res.status(200).json("Registro atualizado com sucesso!")
     }
@@ -50,7 +50,7 @@ class BookController {
     async updateBookStatus(req, res) {
         const {id} = req.params
 
-        await knex("books").where({id}).update({disponibilidadade: true})
+        await knex("books").where({id}).update({disponibilidade: false})
         return res.status(200).json("Tarefa concluida com sucesso!")
     }
 

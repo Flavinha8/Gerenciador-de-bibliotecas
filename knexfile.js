@@ -5,9 +5,9 @@ module.exports = {
     client: 'mysql2',
     connection: {
       host: 'localhost', 
+      database: 'biblioteca_knex',
       user: 'root',
-      password: '',
-      database: ''
+      password: ''
     },
     migrations: {
       directory: path.resolve(
